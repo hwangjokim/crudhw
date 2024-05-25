@@ -1,6 +1,8 @@
 package com.example.crudhw.board.controller;
 
 import com.example.crudhw.board.domain.Board;
+import com.example.crudhw.board.dto.BoardCreateRequest;
+import com.example.crudhw.board.dto.BoardResponse;
 import com.example.crudhw.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
