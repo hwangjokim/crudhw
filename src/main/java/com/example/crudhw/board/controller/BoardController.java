@@ -5,6 +5,7 @@ import com.example.crudhw.board.dto.BoardCreateRequest;
 import com.example.crudhw.board.dto.BoardResponse;
 import com.example.crudhw.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,16 +16,18 @@ public class BoardController {
 
     //게시글 작성
     @PostMapping("/api/board")
-    public Boolean createBoard(@RequestParam String title, @RequestParam String content, @RequestParam String nickname) {
-        boardService.createBoard(title, content);
+    public Boolean createBoard(@RequestBody BoardCreateRequest request) {
+        boardService.createBoard(request.title, request.content);
         return true;
     }
 
     //게시글 조회
-    @GetMapping("api/board")
-    public Board getBoard(@RequestParam Long id) {
+    @GetMapping("/api/board")
+    public ResponseEntity<BoardResponse> getBoard(@RequestParam Long id) {
         Board board = boardService.getBoard(id);
-        return board;
+        BoardResponse response = new BoardResponse(true, board);
+        //HTTP statusCode 200 OK, 400 Bad Request, 404 Not found
+        return ResponseEntity.ok(response);
     }
 
     //게시글 수정
